@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class QueueManager {
 
     public static void main(String[] args) {
-        PriorityQueue<Person> q;
+        PriorityQueue<Person> q = null;
         Scanner stdin = new Scanner(System.in);
 
         /* Welcome and prompt for implementation choices */
@@ -36,9 +36,14 @@ public class QueueManager {
                 System.out.println("Using a unsorted array.");
                 break;
             case "sl":
-                
+                q = new SortedLinkedPriorityQueue<>();
+                System.out.println("Using a Sorted Linked Stack.");
+                break;
             case "ul":
-            case "h":
+                q = new UnsortedLinkedPriorityQueue<>();
+                System.out.println("Using a unsorted Linked Stack.");
+                break;
+            case "h": break;
             default:
                 q = new SortedArrayPriorityQueue<>(8);
                 System.out.println("Invalid choice, using sorted array.");
@@ -81,10 +86,11 @@ public class QueueManager {
                     System.out.println("Can't get head of queue: " + e);
                 }
             } else if (input.toLowerCase().charAt(0) == 'r') {
-
+                
                 /* Remove the item at the head of the queue */
                 try {
                     String name = q.head().getName();
+                    System.out.println(name);
                     System.out.println("Removing " + name + " from the head of the queue");
                     q.remove();
                 } catch (QueueUnderflowException e) {
