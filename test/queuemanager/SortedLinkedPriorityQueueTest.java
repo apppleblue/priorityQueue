@@ -5,6 +5,7 @@
  */
 package queuemanager;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -34,11 +35,9 @@ public class SortedLinkedPriorityQueueTest {
     public void testIsEmpty() {
         System.out.println("isEmpty");
         SortedLinkedPriorityQueue instance = new SortedLinkedPriorityQueue();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -48,11 +47,10 @@ public class SortedLinkedPriorityQueueTest {
     public void testHead() {
         System.out.println("head");
         SortedLinkedPriorityQueue instance = new SortedLinkedPriorityQueue();
-        Object expResult = null;
+        Object expResult = "bob";
+        instance.add("bob", 4);
         Object result = instance.head();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -61,13 +59,33 @@ public class SortedLinkedPriorityQueueTest {
     @Test
     public void testAdd() {
         System.out.println("add");
-        Object item = null;
-        int priority = 0;
+        Object item = "bob";
+        int priority = 5;
+        Object expResult = "bob";
         SortedLinkedPriorityQueue instance = new SortedLinkedPriorityQueue();
         instance.add(item, priority);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Object result = instance.head();
+        assertEquals(expResult, result);
     }
+    
+    /**
+     * Test of add method, of class SortedArrayPriorityQueue.
+     * Checks if the method is sorting out the objects correctly.
+     */
+    @Test
+    public void testAddSorted() throws Exception {
+        System.out.println("add sorted");
+        SortedLinkedPriorityQueue instance = new SortedLinkedPriorityQueue();
+        instance.add("Bob", 6);
+        instance.add("Tim", 4);
+        instance.add("Kim", 8);
+        instance.add("Jim", 3);
+        instance.add("Tom", 2);
+        Object expResult = "Kim";
+        Object result = instance.head();
+        assertEquals(expResult, result);
+    }    
+        
 
     /**
      * Test of remove method, of class SortedLinkedPriorityQueue.
@@ -76,14 +94,18 @@ public class SortedLinkedPriorityQueueTest {
     public void testRemove() {
         System.out.println("remove");
         SortedLinkedPriorityQueue instance = new SortedLinkedPriorityQueue();
+        Object expResult = "bob";
+        instance.add("bob", 4);
+        instance.add("tom", 7);
         instance.remove();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Object result = instance.head();
+        assertEquals(expResult, result);
 
+    }
+    
     /**
      * Test of toString method, of class SortedLinkedPriorityQueue.
-     */
+    
     @Test
     public void testToString() {
         System.out.println("toString");
@@ -94,5 +116,5 @@ public class SortedLinkedPriorityQueueTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+     */
 }
