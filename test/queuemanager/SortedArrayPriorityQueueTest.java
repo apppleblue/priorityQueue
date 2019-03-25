@@ -63,7 +63,7 @@ public class SortedArrayPriorityQueueTest {
      */
     @Test
     public void testAddTwo() throws Exception {
-        System.out.println("add");
+        System.out.println("add two");
         SortedArrayPriorityQueue instance = new SortedArrayPriorityQueue<>(8);
         instance.add("Bob", 4);
         instance.add("tim", 3);
@@ -76,7 +76,7 @@ public class SortedArrayPriorityQueueTest {
      */
     @Test
     public void testAddMax() throws Exception {
-        System.out.println("add");
+        System.out.println("add max");
         SortedArrayPriorityQueue instance = new SortedArrayPriorityQueue<>(8);
         for(int i=0;i<8;i++){
             instance.add("tim", 3);
@@ -104,7 +104,7 @@ public class SortedArrayPriorityQueueTest {
      */
     @Test
     public void testAddSorted() throws Exception {
-        System.out.println("add");
+        System.out.println("add sorted");
         SortedArrayPriorityQueue instance = new SortedArrayPriorityQueue<>(8);
         instance.add("Bob", 6);
         instance.add("Tim", 4);
