@@ -1,5 +1,4 @@
 package queuemanager;
-
 /**
  *
  * @author Uzzy
@@ -15,23 +14,12 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T>{
         tailIndex = 0;
     }
     
-    @Override
-    public T head() throws QueueUnderflowException {
-        if (isEmpty()) {
-            throw new QueueUnderflowException();
-        } else {
-            return ((PriorityItem<T>) storage[1]).getItem();
-        }
-    }
-    
-    private int parent(int pos){
-        //int h = pos/2;
-        //System.out.println(h+"h");
-        return pos/2;
-    }
+    private int parent(int pos){ 
+        return pos / 2; 
+    } 
     
     private int leftChild(int pos){
-        return 2*pos;
+        return (2*pos);
     }
     
     private int rightChild(int pos){
@@ -44,28 +32,13 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T>{
         }
         return false;
     }
-    /*
-    private void swap(int fpos, int spos){
-        //get the properties and the items and swap them in here
-        System.out.println("fpos:"+fpos+", ypos:"+spos);
-        Object xp = ((PriorityItem<T>) storage[fpos]).getPriority();
-        Object xi = ((PriorityItem<T>) storage[fpos]).getItem();
-                System.out.println("XP:"+xp+", XI:"+xi);
-        Object yp = ((PriorityItem<T>) storage[spos]).getPriority();
-        Object yi = ((PriorityItem<T>) storage[spos]).getItem();
-                        System.out.println("YP:"+yp+", YI:"+yi);
-        
-        Object tmp;
-        Object tmp1;
-        
-        tmp = xp;
-        xp = yp;
-        yp = tmp;
-        
-        tmp1 = xi;
-        xi = yi;
-        yi = tmp1;
-    }
+    
+    private void swap(int fpos, int spos){ 
+        Object tmp; 
+        tmp = ((PriorityItem<T>) storage[fpos]).getItem(); 
+        storage[fpos] = ((PriorityItem<T>) storage[spos]).getItem(); 
+        storage[spos] = tmp; 
+    } 
     
     private void maxHeapIf(int pos){
         if(!isLeaf(pos)){
@@ -80,33 +53,25 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T>{
             }
         }
     }
-*/
-    
+
     @Override
-    public void add(T item, int priority){
-        if (tailIndex >= capacity) {
-            /* No resizing implemented, but that would be a good enhancement. */
-            tailIndex = tailIndex - 1;
-            //throw new QueueOverflowException();
-        } else {
-            /* Scan backwards looking for insertion point */
-            int i = tailIndex;
-                while (i > 0 && ((PriorityItem<T>) storage[i - 1]).getPriority() < priority) {
-                    storage[i] = storage[i - 1];
-                    i = i - 1;
-                }
-            storage[i] = new PriorityItem<>(item, priority);
+    public void add(T item, int priority){      
+        storage[++tailIndex] = new PriorityItem<>(item, priority);
+        int temp = ((PriorityItem<T>) storage[tailIndex]).getPriority();
+        System.out.println(temp);
+        
+        if(parent(tailIndex)<=0){
+            System.out.println("less");
+        }else{
+            System.out.println("more");
+            while(priority>((PriorityItem<T>) storage[parent(tailIndex)]).getPriority()){
+                System.out.print("moreee");
+                ((PriorityItem<T>) storage[parent(tailIndex)]).getPriority();
+            }
         }
-        tailIndex = tailIndex + 1;
+
+     
     }
-    
-    /*
-    public void maxHeap(){
-        for(int pos = (capacity / 2); pos >= 1; pos--){
-            maxHeapIf(pos);
-        }
-    }
-    */
     
     public String toString(){
        String result = "[";
@@ -120,6 +85,15 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T>{
         return result;
     }
     
+    @Override
+    public T head() throws QueueUnderflowException {
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else {
+            return ((PriorityItem<T>) storage[1]).getItem();
+        }
+    }
+
     @Override
     public void remove() throws QueueUnderflowException {
         for(int i = 1; i <= capacity / 2; i++) {
@@ -139,14 +113,12 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T>{
         }
                 */
     }
-    
+
     @Override
     public boolean isEmpty() {
         return capacity==0;
     }
     
-    public void print() {
-            
-    }
+
     
 }

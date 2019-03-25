@@ -44,7 +44,7 @@ public class QueueManager {
                 System.out.println("Using a unsorted Linked Stack.");
                 break;
             case "h": 
-                q = new HeapPriorityQueue<>(8);
+                q = new HeapPriorityQueue<>(25);
                 System.out.println("Using a Heap");
                 break;
             default:

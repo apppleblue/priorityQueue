@@ -67,7 +67,7 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return result;
     }
     
-    private int size() {
+    public int size() {
         ListNode<T> node = top;
         int size = 0;
         while (node != null) {

@@ -30,7 +30,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
      *
      * This is equal to the item count minus one.
      */
-    private int tailIndex;
+    public int tailIndex;
 
     /**
      * Create a new empty queue of the given size.
