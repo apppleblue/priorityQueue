@@ -1,4 +1,5 @@
 package queuemanager;
+
 /**
  *
  * @author Uzzy
@@ -6,7 +7,7 @@ package queuemanager;
 public class HeapPriorityQueue<T> implements PriorityQueue<T>{
         private Object[] storage;
         private int capacity;
-        private int tailIndex;
+        public int tailIndex;
     
     public HeapPriorityQueue(int size){
         storage = new Object[size];
@@ -14,12 +15,23 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T>{
         tailIndex = 0;
     }
     
-    private int parent(int pos){ 
-        return pos / 2; 
-    } 
+    @Override
+    public T head() throws QueueUnderflowException {
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else {
+            return ((PriorityItem<T>) storage[1]).getItem();
+        }
+    }
+    
+    private int parent(int pos){
+        //int h = pos/2;
+        //System.out.println(h+"h");
+        return pos/2;
+    }
     
     private int leftChild(int pos){
-        return (2*pos);
+        return 2*pos;
     }
     
     private int rightChild(int pos){
@@ -32,93 +44,86 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T>{
         }
         return false;
     }
+   
+    private void swap(int fpos, int spos){
+        Object temp;
+        int p;
+        temp = ((PriorityItem<T>) storage[fpos]).getItem();
+        p = ((PriorityItem<T>) storage[fpos]).getPriority();
+        
+        Object temp1 = ((PriorityItem<T>) storage[spos]).getItem();
+        int p1 = ((PriorityItem<T>) storage[spos]).getPriority();
+        
+        storage[fpos] = new PriorityItem<>(temp1,p1);
+        storage[spos] = new PriorityItem<>(temp,p);
+    }
     
-    private void swap(int fpos, int spos){ 
-        Object tmp; 
-        tmp = ((PriorityItem<T>) storage[fpos]).getItem(); 
-        storage[fpos] = ((PriorityItem<T>) storage[spos]).getItem(); 
-        storage[spos] = tmp; 
-    } 
-    
-    private void maxHeapIf(int pos){
+    private void maxHeapIFy(int pos){
         if(!isLeaf(pos)){
-            if(((PriorityItem<T>) storage[pos]).getPriority() < ((PriorityItem<T>) storage[leftChild(pos)]).getPriority() || ((PriorityItem<T>) storage[pos]).getPriority() < ((PriorityItem<T>) storage[rightChild(pos)]).getPriority()){
-                if(((PriorityItem<T>) storage[leftChild(pos)]).getPriority() > ((PriorityItem<T>) storage[rightChild(pos)]).getPriority()){
-                    swap(pos, leftChild(pos));
-                    maxHeapIf(leftChild(pos));
-                }else{
-                    swap(pos, rightChild(pos));
-                    maxHeapIf(rightChild(pos));
+            if(((PriorityItem<T>) storage[rightChild(pos)])!=null){
+                if(((PriorityItem<T>) storage[pos]).getPriority() < ((PriorityItem<T>) storage[leftChild(pos)]).getPriority() || ((PriorityItem<T>) storage[pos]).getPriority() < ((PriorityItem<T>) storage[rightChild(pos)]).getPriority()){
+                    if(((PriorityItem<T>) storage[leftChild(pos)]).getPriority() > ((PriorityItem<T>) storage[rightChild(pos)]).getPriority()){
+                        swap(pos, leftChild(pos));
+                        maxHeapIFy(leftChild(pos));
+                    }else{
+                        swap(pos, rightChild(pos));
+                        maxHeapIFy(rightChild(pos));
+                    }
                 }
+            }else if(((PriorityItem<T>) storage[rightChild(pos)])==null && ((PriorityItem<T>) storage[leftChild(pos)])!=null){
+                if(((PriorityItem<T>) storage[leftChild(pos)]).getPriority() > ((PriorityItem<T>) storage[pos]).getPriority()){
+                    if(((PriorityItem<T>) storage[leftChild(pos)]).getPriority() >=0){
+                        swap(pos, leftChild(pos));
+                        maxHeapIFy(leftChild(pos));
+                    }else{
+                        swap(pos, rightChild(pos));
+                        maxHeapIFy(rightChild(pos));
+                    }
+                }
+            }else if(((PriorityItem<T>) storage[rightChild(pos)])==null && ((PriorityItem<T>) storage[leftChild(pos)])==null){
+                
             }
         }
     }
 
     @Override
-    public void add(T item, int priority){      
-        storage[++tailIndex] = new PriorityItem<>(item, priority);
-        int temp = ((PriorityItem<T>) storage[tailIndex]).getPriority();
-        System.out.println(temp);
-        
-        if(parent(tailIndex)<=0){
-            System.out.println("less");
-        }else{
-            System.out.println("more");
-            while(priority>((PriorityItem<T>) storage[parent(tailIndex)]).getPriority()){
-                System.out.print("moreee");
-                ((PriorityItem<T>) storage[parent(tailIndex)]).getPriority();
-            }
-        }
-
-     
+    public void add(T item, int priority){
+       storage[++tailIndex] = new PriorityItem<>(item, priority);
+       
+       int current = tailIndex;
+       while(current > 1 && ((PriorityItem<T>) storage[current]).getPriority() > ((PriorityItem<T>) storage[parent(current)]).getPriority()){
+           swap(current,parent(current));
+           current = parent(current);
+       }
     }
     
     public String toString(){
-       String result = "[";
-        for (int i = 0; i <= tailIndex; i++) {
-            if (i > 0) {
-                result = result;
-            }
-            result = result + storage[i];
+        String result = " ";
+        for(int i = 1; i <= tailIndex / 2; i++){
+            result +=  "PARENT : " + storage[i] + " LEFT CHILD : " + storage[2 * i] + " RIGHT CHILD :" + storage[2 * i + 1];
+            result += System.lineSeparator();
         }
-        result = result + "]";
         return result;
     }
     
     @Override
-    public T head() throws QueueUnderflowException {
-        if (isEmpty()) {
-            throw new QueueUnderflowException();
-        } else {
-            return ((PriorityItem<T>) storage[1]).getItem();
-        }
-    }
-
-    @Override
     public void remove() throws QueueUnderflowException {
-        for(int i = 1; i <= capacity / 2; i++) {
-                System.out.println(
-                    " PARENT : " + storage[i] + " LEFT CHILD : " + storage[2 * i] + " RIGHT CHILD :" + storage[2 * i + 1]);
-                System.out.println();
+        if(tailIndex>=1){
+            storage[1] = storage[tailIndex--];
+            maxHeapIFy(1);
+        }else{
+            System.out.println("Array is empty.");
         }
-         
-        /*
-        if (isEmpty()) {
-            throw new QueueUnderflowException();
-        } else {
-            for (int i = 0; i < tailIndex; i++) {
-                storage[i] = storage[i + 1];
-            }
-            tailIndex = tailIndex - 1;
-        }
-                */
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return capacity==0;
     }
     
-
+    @Override
+    public boolean isEmpty() {
+        if(tailIndex>=1){
+            return false;
+        }else if (tailIndex <1){
+            return true;
+        }
+        return false;
+    }
     
 }

@@ -32,14 +32,19 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     
     @Override
     public void add(T item, int priority){
-        if(top == null){
-            top = new ListNode<>(item, priority, top);
-        }
-        
-        if(top != null){
-            if(top.getPriority()<priority){
-                top = new ListNode<>(item, priority, top);
-            }
+        ListNode temp = new ListNode<>(item, priority, top);
+        ListNode start = top;
+        if(top==null){
+            top = temp;
+        }else if (top.getPriority()<priority){
+            temp.next = top;
+            top = temp;
+        }else{
+            while(start.next != null && start.next.getPriority() > priority){
+                start = start.next;
+            }     
+            temp.next = start.next;
+            start.next = temp;
         }
     }
     
