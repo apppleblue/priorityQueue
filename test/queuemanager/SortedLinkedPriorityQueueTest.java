@@ -55,6 +55,7 @@ public class SortedLinkedPriorityQueueTest {
 
     /**
      * Test of add method, of class SortedLinkedPriorityQueue.
+     * checks if a new node is added
      */
     @Test
     public void testAdd() {
@@ -66,6 +67,7 @@ public class SortedLinkedPriorityQueueTest {
         instance.add(item, priority);
         Object result = instance.head();
         assertEquals(expResult, result);
+        assertThat("List Length", instance.size(), equalTo(1));
     }
     
     /**
@@ -84,11 +86,13 @@ public class SortedLinkedPriorityQueueTest {
         Object expResult = "Kim";
         Object result = instance.head();
         assertEquals(expResult, result);
+        assertThat("List Length", instance.size(), equalTo(5));
     }    
         
 
     /**
      * Test of remove method, of class SortedLinkedPriorityQueue.
+     * Checks if the node with the higest priority is removed.
      */
     @Test
     public void testRemove() {
@@ -100,21 +104,36 @@ public class SortedLinkedPriorityQueueTest {
         instance.remove();
         Object result = instance.head();
         assertEquals(expResult, result);
+        assertThat("List Length", instance.size(), equalTo(1));
 
     }
     
     /**
      * Test of toString method, of class SortedLinkedPriorityQueue.
-    
+    */
     @Test
     public void testToString() {
         System.out.println("toString");
         SortedLinkedPriorityQueue instance = new SortedLinkedPriorityQueue();
-        String expResult = "";
+        String expResult = "LinkedStack: size = 2, contents = [tim 6, bob 5]";
+        instance.add("bob", 5);
+        instance.add("tim", 6);
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-     */
+    
+    /**
+     * Test of size method, of class SortedLinkedPriorityQueue.
+     * Checks if the size method returns the correct size.
+    */
+    @Test
+    public void testSize() {
+        System.out.println("size");
+        SortedLinkedPriorityQueue instance = new SortedLinkedPriorityQueue();
+        int expResult = 2;
+        instance.add("bob", 5);
+        instance.add("tim", 6);
+        int result = instance.size();
+        assertEquals(expResult, result);
+    }
 }

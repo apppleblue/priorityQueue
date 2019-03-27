@@ -72,20 +72,20 @@ public class SortedArrayPriorityQueueTest {
     
     /**
      * Test of add method, of class SortedArrayPriorityQueue.
-     * Checks if the whole array can be filled.
+     * Checks if the size of the array increases from the initial 8
      */
     @Test
-    public void testAddMax() throws Exception {
+    public void testAddOverEight() throws Exception {
         System.out.println("add max");
         SortedArrayPriorityQueue instance = new SortedArrayPriorityQueue<>(8);
-        for(int i=0;i<8;i++){
+        for(int i=0;i<9;i++){
             instance.add("tim", 3);
         }
-        assertThat("Array Length", instance.tailIndex, equalTo(7));
+        assertThat("Array Length", instance.tailIndex, equalTo(8));
     }
     
     /**
-     * Test of add method, of class SortedArrayPriorityQueue.
+     * Test of QueueOverflowException.
      * Checks if the QueueOverflowException class works.
      */
     @Rule
@@ -146,6 +146,10 @@ public class SortedArrayPriorityQueueTest {
         assertEquals(expResult, result);
     }
     
+    /**
+     * Test of remove method, of class SortedArrayPriorityQueue.
+     * Checks if you can remove all the items.
+     */
     @Test
     public void testRemoveMax() throws Exception {
         System.out.println("remove max");
@@ -184,16 +188,16 @@ public class SortedArrayPriorityQueueTest {
 
     /**
      * Test of toString method, of class SortedArrayPriorityQueue.
-     
+     * Checks if the output is correct.
+     */
     @Test
-    public void testToString() {
+    public void testToString() throws QueueOverflowException {
         System.out.println("toString");
-        SortedArrayPriorityQueue instance = null;
-        String expResult = "";
+        SortedArrayPriorityQueue instance = new SortedArrayPriorityQueue<>(8);
+        instance.add("bob", 4);
+        String expResult = "[(bob, 4)]";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    */
+    
 }

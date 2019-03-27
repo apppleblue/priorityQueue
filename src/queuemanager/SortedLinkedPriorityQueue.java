@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package queuemanager;
-
 /**
  *
- * @author usman
- * @param <T>
+ * @author Muhammad Usman
  */
+
 public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     private ListNode<T> top;
     
@@ -17,11 +11,17 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         top = null;
     }
     
+    /**
+     * This method checks if the list is empty
+     */
     @Override
     public boolean isEmpty() {
         return top == null;
     }
     
+    /**
+     * This method returns the item at the top of the list
+     */
     @Override
     public T head() {
         if (isEmpty()) {
@@ -30,6 +30,12 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return top.getItem();
     }
     
+    /**
+     * This method adds a new node to the list also sorts them from highest priority to lowest
+     * 
+     * @param item
+     * @param priority
+     */
     @Override
     public void add(T item, int priority){
         ListNode temp = new ListNode<>(item, priority, top);
@@ -48,6 +54,9 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
     
+    /**
+     * This method removes the node at the top of the list
+     */
     @Override
     public void remove() {
         if (isEmpty()) {
@@ -56,6 +65,9 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         top = top.getNext();
     }
     
+    /**
+     * This method outputs the nodes in the list
+     */
     @Override
     public String toString() {
         String result = "LinkedStack: size = " + size();
@@ -72,6 +84,9 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return result;
     }
     
+    /**
+     * This method returns the size of the list
+     */
     public int size() {
         ListNode<T> node = top;
         int size = 0;
@@ -80,8 +95,5 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
             node = node.getNext();
         }
         return size;
-    }
-    
-    
-    
+    }    
 }

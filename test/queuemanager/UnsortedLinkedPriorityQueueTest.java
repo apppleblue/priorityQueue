@@ -82,18 +82,17 @@ public class UnsortedLinkedPriorityQueueTest {
 
     /**
      * Test of toString method, of class UnsortedLinkedPriorityQueue.
-    
+    */
     @Test
     public void testToString() {
         System.out.println("toString");
         UnsortedLinkedPriorityQueue instance = new UnsortedLinkedPriorityQueue();
-        String expResult = "";
+        String expResult = "LinkedStack: size = 2, contents = [tim 6, bob 4]";
+        instance.add("bob", 4);
+        instance.add("tim", 6);
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    */
     
     /**
      * Test of highestPriority method, of class UnsortedLinkedPriorityQueue.

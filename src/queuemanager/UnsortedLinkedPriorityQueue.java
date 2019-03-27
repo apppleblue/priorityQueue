@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package queuemanager;
-
 /**
  *
- * @author usman
+ * @author Muhammad Usman
  */
-
-
 
 public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     private ListNode<T> top;
@@ -19,16 +11,21 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         top = null;
     }
     
+    /**
+     * This checks if the list is empty
+     */
     @Override
     public boolean isEmpty() {
         return top == null;
     }
     
+    /**
+     * This method returns the item with the highest priority
+     */
     @Override
     public T head() {
         int h = highestPriority();
         ListNode<T> node = top;
-        
         if (isEmpty()) {
             throw new StackUnderflowException();
         }else{
@@ -39,6 +36,9 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return node.getItem();
     }
     
+    /**
+     * This method removes the item with the highest priority
+     */
     @Override
     public void remove() throws QueueUnderflowException{
         int h = highestPriority();
@@ -46,7 +46,6 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
             throw new StackUnderflowException();
         }else{
             ListNode<T> temp = top;
-            
                 System.out.println(h);
 		int count=1;
                 if(h==0){
@@ -66,12 +65,21 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
 
-    
+    /**
+     * This method adds a new item to the list
+     * 
+     * @param item
+     * @param priority
+     */
     @Override
     public void add(T item, int priority) {
         top = new ListNode<>(item, priority, top);
     }
     
+    /**
+     * This method outputs every node in the list
+     * @return 
+     */
     @Override
     public String toString() {
         String result = "LinkedStack: size = " + size();
@@ -88,6 +96,9 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return result;
     }
     
+    /**
+     * This method gets the size of the list and returns it
+     */
     private int size() {
         ListNode<T> node = top;
         int size = 0;
@@ -98,6 +109,9 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return size;
     }
     
+    /**
+     * This method gets the node with the highest priority
+     */
     public int highestPriority(){
         ListNode<T> node = top;
         int i = 0;

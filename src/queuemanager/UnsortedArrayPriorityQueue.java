@@ -1,18 +1,9 @@
 package queuemanager;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
- * @author usman
+ * @author Muhammad Usman
  */
+
 public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
     
     /**
@@ -43,8 +34,9 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         tailIndex = -1;
     }
 
-
-
+    /**
+     * This method returns the item with the highest priority
+     */
     @Override
     public T head() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -55,7 +47,13 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             return ((PriorityItem<T>) storage[h]).getItem();
         }
     }
-
+    
+    /**
+     * This method add a new item to the array
+     * 
+     * @param item
+     * @param priority
+     */
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
             tailIndex = tailIndex + 1;
@@ -71,15 +69,15 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             storage[tailIndex] = new PriorityItem<>(item, priority);
     }
 
+    /**
+     * This method removes the item with the highest priority
+     */
     @Override
     public void remove() throws QueueUnderflowException {
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
             int h = highestPriority();
-            //storage[i] = storage [i + 1];
-            //tailIndex = tailIndex -1; 
-            //https://www.cs.umd.edu/users/clin/MoreJava/Container/arr-remove.html
             for (int i = h ; i < (storage.length - 1) ; i++ ){
                storage[ i ] = storage[ i + 1 ] ; 
             }
@@ -87,11 +85,17 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
 
+    /**
+     * This method checks if the array is empty
+     */
     @Override
     public boolean isEmpty() {
         return tailIndex < 0;
     }
-
+    
+    /**
+     * This method outputs all the items in the array
+     */
     @Override
     public String toString() {
         String result = "[";
@@ -105,6 +109,9 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         return result;
     }
     
+    /**
+     * This method figures out the item with the highest priority and returns it
+     */
     public int highestPriority(){
         int i = 0;
         int pos = 0;
@@ -119,12 +126,4 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         }
         return pos;
     }
-    
-    /*
-    public void test(){
-        int h ;
-        h = highestPriority();
-        System.out.println(storage[h]);
-    }
-    */
 }

@@ -21,12 +21,12 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
     /**
      * Where the data is actually stored.
      */
-    private final Object[] storage;
+    private Object[] storage;
 
     /**
      * The size of the storage array.
      */
-    private final int capacity;
+    private int capacity;
 
     /**
      * The index of the last item stored.
@@ -46,7 +46,10 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         capacity = size;
         tailIndex = -1;
     }
-
+    
+    /**
+     * This method returns the item at the top of the array
+     */
     @Override
     public T head() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -55,14 +58,23 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             return ((PriorityItem<T>) storage[0]).getItem();
         }
     }
-
+    
+    /**
+     * This method adds a item in to the array
+     * 
+     * @param item
+     * @param priority
+     */
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
         tailIndex = tailIndex + 1;
         if (tailIndex >= capacity) {
-            /* No resizing implemented, but that would be a good enhancement. */
-            tailIndex = tailIndex - 1;
-            throw new QueueOverflowException();
+            Object[] tmp = storage;
+                storage = (T[]) new Object[2 * capacity];
+                for (int i = 0; i < tailIndex; i++) {
+                    storage[i] = tmp[i];
+                }
+                capacity = storage.length;
         } else {
             /* Scan backwards looking for insertion point */
             int i = tailIndex;
@@ -73,7 +85,10 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             storage[i] = new PriorityItem<>(item, priority);
         }
     }
-
+    
+    /**
+     * This method removes the item at the top of the array
+     */
     @Override
     public void remove() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -85,12 +100,18 @@ public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             tailIndex = tailIndex - 1;
         }
     }
-
+    
+    /**
+     * This method checks if the array is empty
+     */
     @Override
     public boolean isEmpty() {
         return tailIndex < 0;
     }
-
+    
+    /**
+     * This method outputs the objects stored in the array.
+     */
     @Override
     public String toString() {
         String result = "[";

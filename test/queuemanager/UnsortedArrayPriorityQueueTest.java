@@ -51,6 +51,20 @@ public class UnsortedArrayPriorityQueueTest {
         instance.add("bob", 4);
         assertThat("Array Length", instance.tailIndex, equalTo(0));
     }
+    
+    /**
+     * Test of add method, of class UnsortedArrayPriorityQueue.
+     * Checks if the size of the array increases from the initial 8
+     */
+    @Test
+    public void testAddOverEight() throws Exception {
+        System.out.println("add max");
+        UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue<>(8);
+        for(int i=0;i<9;i++){
+            instance.add("tim", 3);
+        }
+        assertThat("Array Length", instance.tailIndex, equalTo(8));
+    }
 
     /**
      * Test of remove method, of class UnsortedArrayPriorityQueue.
@@ -79,18 +93,18 @@ public class UnsortedArrayPriorityQueueTest {
 
     /**
      * Test of toString method, of class UnsortedArrayPriorityQueue.
-     
+    */ 
     @Test
-    public void testToString() {
+    public void testToString() throws QueueOverflowException {
         System.out.println("toString");
-        UnsortedArrayPriorityQueue instance = null;
-        String expResult = "";
+        UnsortedArrayPriorityQueue instance = new UnsortedArrayPriorityQueue<>(8);
+        String expResult = "[(bob, 4), (tim, 6)]";
+        instance.add("bob", 4);
+        instance.add("tim", 6);
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    */
+    
     
     /**
      * Test of highestPriority method, of class UnsortedArrayPriorityQueue.
