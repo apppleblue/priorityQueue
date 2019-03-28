@@ -128,8 +128,10 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T>{
      */
     @Override
     public void add(T item, int priority){
+        //adds new item at the bottom of the tree and increments tailIndex by 1
        storage[++tailIndex] = new PriorityItem<>(item, priority);
        int current = tailIndex;
+       //shifts the items around so they are all in the correct place
        while(current > 1 && ((PriorityItem<T>) storage[current]).getPriority() > ((PriorityItem<T>) storage[parent(current)]).getPriority()){
            swap(current,parent(current));
            current = parent(current);
@@ -153,6 +155,8 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T>{
      */
     @Override
     public void remove() throws QueueUnderflowException {
+        //checks if the array has anything in it 
+        //if it does it will remove the root of the tree and decrease the tailIndex by 1
         if(tailIndex>=1){
             storage[1] = storage[tailIndex--];
             maxHeapIFy(1);
@@ -166,6 +170,8 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T>{
      */
     @Override
     public boolean isEmpty() {
+        //checks if the tailIndex is more than or equal to 1
+        //if it is it returns false if it isnt return true
         if(tailIndex>=1){
             return false;
         }else if (tailIndex <1){

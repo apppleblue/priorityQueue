@@ -16,6 +16,7 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
      */
     @Override
     public boolean isEmpty() {
+        //returns if the list is empty
         return top == null;
     }
     
@@ -24,15 +25,18 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
      */
     @Override
     public T head() {
+        //runs the highestPriority function adn stores the result in h
         int h = highestPriority();
         ListNode<T> node = top;
         if (isEmpty()) {
             throw new StackUnderflowException();
         }else{
+            //loops through until it goes to the node with the highest priority
             for(int i=0; i<h;i++){
                 node = node.getNext();
             }
         }
+        //returns the node with the highest priority
         return node.getItem();
     }
     
@@ -46,16 +50,18 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
             throw new StackUnderflowException();
         }else{
             ListNode<T> temp = top;
-                System.out.println(h);
 		int count=1;
+                //if theres only one item it removes that
                 if(h==0){
                    top=top.next;
                 }
+                //if there is two it removes the top one and moves the other one up
                 if(h==1){
                    top.next = top.next.next;
                 }
                  if(h>1){
-                     temp=top;
+                    temp=top;
+                    //remoes the top one then moves all the items up one 
                     while(count<h){
                         count++;
                         temp=temp.next;
@@ -73,6 +79,7 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
      */
     @Override
     public void add(T item, int priority) {
+        //adds a new item to the top of the list
         top = new ListNode<>(item, priority, top);
     }
     
@@ -82,8 +89,8 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
      */
     @Override
     public String toString() {
-        String result = "LinkedStack: size = " + size();
-        result += ", contents = [";
+        String result = "LinkedStack: ";
+        result += "contents = [";
         for (ListNode<T> node = top; node != null; node = node.getNext()) {
             if (node != top) {
                 result += ", ";
@@ -102,10 +109,12 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     private int size() {
         ListNode<T> node = top;
         int size = 0;
+        //goes thorough the nodes and counts the number of nodes
         while (node != null) {
             size = size + 1;
             node = node.getNext();
         }
+        //returns the number of nodes
         return size;
     }
     
@@ -118,6 +127,7 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         int pos = 0;
         int priority = 0;
         int s = size();
+        //goes through the array and gets the item with the highest priority
         while (i < s) {
             if(node.getPriority()>=priority){
                 pos=i;
@@ -126,6 +136,7 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
             node = node.getNext();
             i++;
         }
+        //returns the position of the node with the highest priority
         return pos;
     }
 }

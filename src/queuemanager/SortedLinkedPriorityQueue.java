@@ -27,6 +27,7 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         if (isEmpty()) {
             throw new StackUnderflowException();
         }
+        //gets the item stored at the front and returns it
         return top.getItem();
     }
     
@@ -38,14 +39,18 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
      */
     @Override
     public void add(T item, int priority){
+        //initalises some variables
         ListNode temp = new ListNode<>(item, priority, top);
         ListNode start = top;
+        //if its empty it adds a new node
         if(top==null){
             top = temp;
+        //if the top node has a lower priority than the new one it will swap them    
         }else if (top.getPriority()<priority){
             temp.next = top;
             top = temp;
         }else{
+        //goes through the nodes and look for the position to add it in    
             while(start.next != null && start.next.getPriority() > priority){
                 start = start.next;
             }     
@@ -62,6 +67,7 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         if (isEmpty()) {
             throw new StackUnderflowException();
         }
+        //removes the item at the top
         top = top.getNext();
     }
     
@@ -70,8 +76,8 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
      */
     @Override
     public String toString() {
-        String result = "LinkedStack: size = " + size();
-        result += ", contents = [";
+        String result = "Sorted Linked List:";
+        result += " contents = [";
         for (ListNode<T> node = top; node != null; node = node.getNext()) {
             if (node != top) {
                 result += ", ";
@@ -90,10 +96,12 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     public int size() {
         ListNode<T> node = top;
         int size = 0;
+        //loops through the nodes and adds one to the size variable until there are no nodes left
         while (node != null) {
             size = size + 1;
             node = node.getNext();
         }
+        //returns the size of the list
         return size;
     }    
 }

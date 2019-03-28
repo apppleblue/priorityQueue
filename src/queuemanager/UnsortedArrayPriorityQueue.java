@@ -43,7 +43,9 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             throw new QueueUnderflowException();
         } else {
             int h ;
+            //runs the highestPriority function and stores the result in h
             h = highestPriority();
+            //returns the item from location h which will be the item with the highest priority
             return ((PriorityItem<T>) storage[h]).getItem();
         }
     }
@@ -56,6 +58,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
      */
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
+            //adds one to the tailIndex
             tailIndex = tailIndex + 1;
             if (tailIndex >= capacity) {
                 Object[] tmp = storage;
@@ -78,6 +81,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             throw new QueueUnderflowException();
         } else {
             int h = highestPriority();
+            //loops through the array to get the item with the highest priority and remove it
             for (int i = h ; i < (storage.length - 1) ; i++ ){
                storage[ i ] = storage[ i + 1 ] ; 
             }
@@ -90,6 +94,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
      */
     @Override
     public boolean isEmpty() {
+        //returns if the array si empty
         return tailIndex < 0;
     }
     
@@ -116,7 +121,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         int i = 0;
         int pos = 0;
         int priority = 0;
-        
+        //goes through the array and gets the item with the highest priority
         while(i<tailIndex){
             if(((PriorityItem<T>) storage[i]).getPriority() >= priority){
                 pos=i;
